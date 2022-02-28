@@ -1,3 +1,5 @@
+//// books.js - Dzina Butko - ID 301215947 - Midterm Test - Test 1
+
 // modules required for routing
 let express = require('express');
 let router = express.Router();
@@ -29,7 +31,7 @@ router.get('/add', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-    // Redirect the User to Details Page
+    // Create redirection to the books details page
   res.render('books/details', {
     title: 'Add a Book',
     books: '',
@@ -44,9 +46,9 @@ router.post('/add', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-    // Gets data from the form
+  // Get the data from the request body
   let data = req.body;
-  // Formats data accordinly 
+  // Data format
   const newBook = {
     Title: data.title,
     Description: data.description,
@@ -54,7 +56,7 @@ router.post('/add', (req, res, next) => {
     Author: data.author,
     Genre: data.genre
   }
-  // Creates the book on MongoDB
+  // Create the book on MongoDB
   book.create(newBook, function(err, result) {
     if (err) {
       res.send(err);
@@ -77,7 +79,7 @@ router.get('/:id', (req, res, next) => {
         return console.error(err);
       }
       else {
-        // Redirects user to Details Page
+        // User redirection to the books details page
         res.render('books/details', {
           title: 'Edit a Book',
           books: book,
@@ -93,10 +95,10 @@ router.post('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-    // Gets data from the form
+    // Get the  data from the form to update request of an existing book by using it's id property
     let id = req.params.id;
     let data = req.body;
-    // Formats data accordinly 
+    // Data format
     const updateData = {
       Title: data.title,
       Description: data.description,
@@ -120,6 +122,8 @@ router.get('/delete/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+
+    //Logic that processes the user's delete request  and removes an existing book from databaseby using it's id property
      let id = req.params.id;
      book.remove( {_id: id} , (err) => {
       if (err) {
