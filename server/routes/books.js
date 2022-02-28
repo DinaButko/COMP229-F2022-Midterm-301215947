@@ -71,7 +71,8 @@ router.get('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
-     book.findById( req.params.id , (err, book) => {
+     let id = req.params.id;
+     book.findById( id , (err, book) => {
       if (err) {
         return console.error(err);
       }
@@ -93,6 +94,7 @@ router.post('/:id', (req, res, next) => {
      * ADD CODE HERE *
      *****************/
     // Gets data from the form
+    let id = req.params.id;
     let data = req.body;
     // Formats data accordinly 
     const updateData = {
@@ -102,7 +104,7 @@ router.post('/:id', (req, res, next) => {
       Author: data.author,
       Genre: data.genre
     }
-    book.updateOne( {_id: req.params.id} , updateData, {upsert: true}, (err, result) => {
+    book.updateOne( {_id: id} , updateData, {upsert: true}, (err, result) => {
       if (err) {
         return console.error(err);
       }
@@ -115,11 +117,11 @@ router.post('/:id', (req, res, next) => {
 
 // GET - process the delete by user id
 router.get('/delete/:id', (req, res, next) => {
-
     /*****************
      * ADD CODE HERE *
      *****************/
-     book.remove( {_id: req.params.id} , (err) => {
+     let id = req.params.id;
+     book.remove( {_id: id} , (err) => {
       if (err) {
         return console.error(err);
       }
