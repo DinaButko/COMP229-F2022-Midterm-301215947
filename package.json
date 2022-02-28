@@ -28,6 +28,9 @@
     "node": "^17.3.1",
     "npm": "^8.3.0"
   },
+  "scripts": {
+    "postinstall": "ng build"
+  },
   "description": "## Welcome to the MidTerm Project - the Favourite Book List App",
   "main": "server.js",
   "devDependencies": {
