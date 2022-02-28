@@ -4,7 +4,7 @@ let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
-
+let book = require('../models/books');
 // import "mongoose" - required for DB Access
 let mongoose = require('mongoose');
 // URI

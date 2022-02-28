@@ -29,6 +29,12 @@ router.get('/add', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    // Redirect the User to Details Page
+  res.render('books/details', {
+    title: 'Add a Book',
+    books: '',
+    action: '/books/add'
+  });
 
 });
 
@@ -38,6 +44,24 @@ router.post('/add', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    // Gets data from the form
+  let data = req.body;
+  // Formats data accordinly 
+  const newBook = {
+    Title: data.title,
+    Description: data.description,
+    Price: parseInt(data.price),
+    Author: data.author,
+    Genre: data.genre
+  }
+  // Creates the book on MongoDB
+  book.create(newBook, function(err, result) {
+    if (err) {
+      res.send(err);
+    } else {
+      res.redirect('/books');
+    }
+  });
 
 });
 
@@ -47,6 +71,19 @@ router.get('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+     book.findById( req.params.id , (err, book) => {
+      if (err) {
+        return console.error(err);
+      }
+      else {
+        // Redirects user to Details Page
+        res.render('books/details', {
+          title: 'Edit a Book',
+          books: book,
+          action: ''
+        });
+      }
+    });
 });
 
 // POST - process the information passed from the details form and update the document
@@ -55,6 +92,24 @@ router.post('/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+    // Gets data from the form
+    let data = req.body;
+    // Formats data accordinly 
+    const updateData = {
+      Title: data.title,
+      Description: data.description,
+      Price: parseInt(data.price),
+      Author: data.author,
+      Genre: data.genre
+    }
+    book.updateOne( {_id: req.params.id} , updateData, {upsert: true}, (err, result) => {
+      if (err) {
+        return console.error(err);
+      }
+      else {
+        res.redirect('/books');
+      }
+    });
 
 });
 
@@ -64,6 +119,14 @@ router.get('/delete/:id', (req, res, next) => {
     /*****************
      * ADD CODE HERE *
      *****************/
+     book.remove( {_id: req.params.id} , (err) => {
+      if (err) {
+        return console.error(err);
+      }
+      else {
+        res.redirect('/books');
+      }
+    });
 });
 
 
