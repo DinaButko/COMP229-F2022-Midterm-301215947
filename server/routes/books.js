@@ -48,11 +48,11 @@ router.post('/add', (req, res, next) => {
      *****************/
   // Get the data from the request body
   let data = req.body;
-  // Data format
+  // Data format, parse integer value in float for price
   const newBook = {
     Title: data.title,
     Description: data.description,
-    Price: parseInt(data.price),
+    Price: parseFloat(data.price),
     Author: data.author,
     Genre: data.genre
   }
@@ -98,11 +98,11 @@ router.post('/:id', (req, res, next) => {
     // Get the  data from the form to update request of an existing book by using it's id property
     let id = req.params.id;
     let data = req.body;
-    // Data format
+      // Data format, parse integer value in float for price
     const updateData = {
       Title: data.title,
       Description: data.description,
-      Price: parseInt(data.price),
+      Price: parseFloat(data.price),
       Author: data.author,
       Genre: data.genre
     }
