@@ -1,3 +1,4 @@
+//books.js - Dzina Butko - ID 301215947 - Midterm Test - Test 1
 let mongoose = require('mongoose');
 
 // create a model class
